@@ -145,12 +145,12 @@ const AdminDashboard = () => {
                         <div className="head">
                             <h3>Attendance Overview</h3>
                             <div className="dropdown">
-                                <div className="dropdown-button" onClick={toggleDropdown}>
+                                <div className="dropdown-button"  onClick={toggleDropdown}>
                                     <div>{selectedOption}</div>
                                     <div><FaAngleDown /></div>
                                 </div>
                                 {isOpen && (
-                                    <div className="dropdown-menu">
+                                    <div className="dropdown-menu" >
                                         <div className="dropdown-item" onClick={() => selectOption('Today')}>Today</div>
                                         <div className="dropdown-item" onClick={() => selectOption('Week')}>Week</div>
                                         <div className="dropdown-item" onClick={() => selectOption('Month')}>Month</div>

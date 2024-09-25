@@ -63,6 +63,8 @@ import EmployeeHealthDetails from './Pages/EmployeeHealth/EmployeeHealthDetails/
 import { useSelector } from 'react-redux';
 import AllshiftList from './Pages/shift-management/AllShiftList/AllshiftList.jsx';
 import AddNewShift from './Pages/shift-management/AllShiftList/AddNewShift/AddNewShift.jsx';
+import ShiftManagementDetails from './Pages/shift-management/AllShiftList/ShiftDetails/ShiftManagementDetails.jsx';
+import ShiftEditPage from './Pages/shift-management/AllShiftList/ShiftEditPage/ShiftEditPage.jsx';
 
 
 const App = () => {
@@ -138,8 +140,12 @@ const App = () => {
                   {/* {AllAttendanceList } */}
                   <Route path="/all-attendance-list" element={<AllAttendanceList />} />
                   <Route path="/attendance-details" element={<AttendanceDetails />} />
+
+                  {/* shift management */}
                   <Route path='/shift-management' element={<AllshiftList/>}/>
                   <Route path='/AddNewShift' element={<AddNewShift/>}/>
+                  <Route path='/shiftManagementDetails' element={<ShiftManagementDetails/>}/>
+                  <Route path='/shiftEditPage' element={<ShiftEditPage/>}/>
                   {/*  */}
                   <Route path="/department" element={<Department />} />
                   <Route path="/designation" element={<Designation />} />

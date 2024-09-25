@@ -21,6 +21,62 @@ function AllshiftList() {
         { shiftName: "Night", StartTime: "10.00AM", EndTime: "02.00AM", Employees: "253", ShiftDays: "6", Duration: "8HR", status: "Active", isChecked: false },
        
     ]);
+
+    //popup formdata
+
+    const [popupformData, popupsetFormData] = useState({
+        department: '',
+        employName: '',
+        date: '',
+        shift: '',
+        startTime: '',
+        endTime: '',
+        breakTime: '',
+        extraHours: ''
+      });
+
+      const [isOpen, setIsOpen] = useState(false);
+  const [isDepartmentOpen, setIsDepartmentOpen] = useState(false);
+  const [shiftIsOpen, setShiftIsOpen] = useState(false);
+  const [searchQueryDepartment, setSearchQueryDepartment] = useState('');
+
+  const dropdownButtonRef = useRef(null);
+  const departmentButtonRef = useRef(null);
+  const dropdownRef = useRef(null);
+  const departmentRef = useRef(null);
+
+  const toggleDropdown = () => setIsOpen(!isOpen);
+  const toggleDepartment = () => setIsDepartmentOpen(!isDepartmentOpen);
+  const toggleDropdownShift = () => setShiftIsOpen(!shiftIsOpen);
+
+
+
+
+  const handleItemClick = (value) => {
+    setFormData({ ...formData, department: value });
+    setIsOpen(false);
+  };
+
+  const handleSearchQueryChangeDepartment = (e) => {
+    setSearchQueryDepartment(e.target.value);
+  };
+
+  const selectOption = (field, value) => {
+    setFormData({ ...formData, employName: value });
+    setIsDepartmentOpen(false);
+  };
+
+  const handleShiftClick = (value) => {
+    setFormData({ ...formData, shift: value });
+    setShiftIsOpen(false);
+  };
+
+  const handleSubmit = () => {
+    // You can process the form data here, for example, send it to an API
+    console.log('Form Data:', formData);
+  };
+
+  
     
   
 
@@ -78,19 +134,14 @@ function AllshiftList() {
     //popup
  
    
-    const [isOpen, setIsOpen] = useState(false);
-    const [shiftIsOpen,setShiftIsOpen]=useState(false)
-    const dropdownRef = useRef(null);
-  
-    // Function to toggle dropdown open/close state
-    const toggleDropdown = () => {
-      setIsOpen(!isOpen);
-      
-    };
+    
+    const shiftDropdownRef = useRef(null);
+    const shiftButtonRef = useRef(null);
 
-    const toggleDropdownShift=()=>{
-        setShiftIsOpen(!shiftIsOpen)
-    }
+
+
+    
+    
   
     // Close the dropdown if clicked outside of it
 //    useEffect(() => {
@@ -232,53 +283,45 @@ function AllshiftList() {
     const handleSearchQueryChangeDepartment2 = (e) => setSearchQueryDepartment2(e.target.value);
    
     const [selectedRole, setSelectedRole] = useState('Select Role');
-    const handleItemClick = (role) => {
-        setSelectedRole(role); // Update selected role
-        setIsOpen(false);      // Close dropdown after selecting
-      };
+   
 
       const [shiftSelectRole,setShiftSelectRole]=useState("select Shift")
 
-      const handleShiftClick=(shift)=>{
-        setShiftSelectRole(shift)
-        setShiftIsOpen(false)
-      }
+      
 
 
       //dropdown
 
-      const [isDepartmentOpen, setIsDepartmentOpen] = useState(false); // Controls dropdown visibility
-      const [searchQueryDepartment, setSearchQueryDepartment] = useState(''); // Handles search input
+
       const [formData, setFormData] = useState({ department: '' }); // Tracks selected department
     
-      const departmentRef = useRef(null); // Reference to the dropdown menu
-      const departmentButtonRef = useRef(null); // Reference to the dropdown button
+     
     
       // Sample department options
       const departmentOptions = ['Management', 'Development', 'HR'];
     
-      // Toggle dropdown visibility
-      const toggleDepartment = () => {
-        setIsDepartmentOpen(!isDepartmentOpen);
-      };
+      
     
-      // Handle search query change
-      const handleSearchQueryChangeDepartment = (event) => {
-        setSearchQueryDepartment(event.target.value);
-      };
-    
-      // Handle option selection
-      const selectOption = (dropdown, value) => {
-        setFormData((prevState) => ({
-          ...prevState,
-          [dropdown]: value,
-        }));
-        setIsDepartmentOpen(false); // Close dropdown after selection
-      };
+
+   
+     
+      
+      
     
       // Close dropdown if clicked outside
-      useEffect(() => {
+     
+
+//popup
+
+      const closePopup = () => {
+        setShowPopup(false);
+    };
+
+
+
+    useEffect(() => {
         const handleClickOutside = (event) => {
+          // Close department dropdown if clicked outside
           if (
             departmentRef.current &&
             !departmentRef.current.contains(event.target) &&
@@ -287,13 +330,41 @@ function AllshiftList() {
           ) {
             setIsDepartmentOpen(false);
           }
+    
+          // Close general dropdown if clicked outside
+          if (
+            dropdownRef.current &&
+            !dropdownRef.current.contains(event.target) &&
+            dropdownButtonRef.current &&
+            !dropdownButtonRef.current.contains(event.target)
+          ) {
+            setIsOpen(false);
+          }
         };
     
+        // Attach the event listener for outside clicks
         document.addEventListener('mousedown', handleClickOutside);
+    
+        // Cleanup event listener on component unmount
         return () => {
           document.removeEventListener('mousedown', handleClickOutside);
         };
-      }, []);
+      }, [departmentRef, departmentButtonRef, dropdownRef, dropdownButtonRef]);
+
+      
+      //checkbox
+
+      const handleCheckboxChange = (index) => {
+        const updatedEmployees = [...filteredEmployees];
+        updatedEmployees[index].isChecked = !updatedEmployees[index].isChecked;
+        setFilteredEmployees(updatedEmployees);
+    };
+
+
+
+    
+
+    
   return (
     <div>
         <div className="EmpOn_main_container" >
@@ -394,6 +465,7 @@ function AllshiftList() {
                                 value={searchQuery}
                                 onChange={handleSearchChange}
                                 onKeyUp={handleFilterChange}
+                               id='AllShiftSearch'
                             />
                         </div>
                     </div>
@@ -486,7 +558,7 @@ function AllshiftList() {
                         </thead>
                         <tbody>
                             {currentEmployees.map((emp, index) => (
-                                <tr key={index}  >
+                                <tr key={index} >
                                     <td>
                                         <input type="checkbox" checked={emp.isChecked} onChange={() => handleCheckboxChange(indexOfFirstEmployee + index)} onClick={DelThis} />
                                         {/* {emp.isChecked &&
@@ -500,12 +572,15 @@ function AllshiftList() {
                                             </span>
                                         } */}
                                     </td>
-                                    <td>{emp.shiftName}</td>
-                                    <td>{emp.StartTime}</td>
-                                    <td>{emp.EndTime}</td>
-                                    <td>{emp.Employees}</td>
-                                    <td>{emp.ShiftDays}</td>
-                                    <td>{emp.Duration}</td>
+                                    
+                                  <td> <Link to="/shiftManagementDetails" className='ShiftManagementLink'>{emp.shiftName}</Link></td>
+                                   {/* <td>{emp.shiftName}</td> */}
+                                    <td><Link to="/shiftManagementDetails" className='ShiftManagementLink'>{emp.StartTime}</Link></td>
+                                    <td><Link to="/shiftManagementDetails" className='ShiftManagementLink'>{emp.EndTime}</Link></td>
+                                    <td> <Link to="/shiftManagementDetails" className='ShiftManagementLink'>{emp.Employees}</Link></td>
+                                    <td><Link to="/shiftManagementDetails" className='ShiftManagementLink'>{emp.ShiftDays}</Link></td>
+                                    <td>        <Link to="/shiftManagementDetails" className='ShiftManagementLink'>{emp.Duration}</Link>
+                                    </td>
                                     <td>
                                         <div className="status-dropdown">
                                             <div key={index} className="status-container">
@@ -551,10 +626,10 @@ function AllshiftList() {
                              <div className='Popup'>
      <div className='PopupNav'>
       <div className='PopupHeading' style={{display:"flex",justifyContent:"space-between",width:"92%"}}>
-      <h2>Add Shedule</h2>  
-      <div className='close_icon'>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#9b9b9b" fill="none">
-                                <path d="M14.9994 15L9 9M9.00064 15L15 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      <span>Add Shedule</span>  
+      <div className='close_icon' onClick={closePopup}>
+                            <svg id='CloseBtnIcon' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#9b9b9b" fill="none">
+                                <path  d="M14.9994 15L9 9M9.00064 15L15 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                 <path d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z" stroke="currentColor" stroke-width="1.5" />
                             </svg>
                         </div>
@@ -562,42 +637,46 @@ function AllshiftList() {
 
     <div id='MainContent'>
       <div className='First-Section'>
-       <div className='First-SectionData'><label style={{color:"#E51F1F"}}>Department*</label>
-       <div className="dropdown" style={{ marginTop: '10px' }} ref={dropdownRef}>
-      <div
-        className="dropdown-button"
-        style={{ padding: '5px', cursor: 'pointer' }}
-        onClick={toggleDropdown}
-      >
-        <div>{selectedRole}</div>
-        <span id="toggle_selectIcon">
-          {isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
-        </span>
-      </div>
-
-      {isOpen && (
-        <div className="dropdown-menu">
-          <div className="dropdown-item" onClick={() => handleItemClick('CEO')}>CEO</div>
-          <div className="dropdown-item" onClick={() => handleItemClick('HR')}>HR</div>
-          <div className="dropdown-item" onClick={() => handleItemClick('Manager')}>Manager</div>
+      <div className="First-SectionData">
+      <label style={{ color: "#E51F1F" }}>Department*</label>
+      <div className="dropdown" style={{ marginTop: '10px' }}ref={dropdownRef}>
+        <div
+          className="dropdown-button"
+          style={{ padding: '5px', cursor: 'pointer' }}
+          onClick={toggleDropdown}
+          ref={departmentButtonRef}
+        >
+        <div>{formData.department || 'Select department'}</div>
+          <span id="toggle_selectIcon">
+            {isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
+          </span>
         </div>
-      )}
+
+        {isOpen && (
+          <div className="dropdown-menu">
+            <div className="dropdown-item" onClick={() => handleItemClick('CEO')}>CEO</div>
+            <div className="dropdown-item" onClick={() => handleItemClick('HR')}>HR</div>
+            <div className="dropdown-item" onClick={() => handleItemClick('Manager')}>Manager</div>
+          </div>
+        )}
+      </div>
     </div>
-       </div>
+
        <div className='First-SectionData'>
         <label style={{color:"#E51F1F"}}>Employee Name*</label>
         <div className="form-group" style={{ marginTop: '10px' }}>
                           
-                            <div className="dropdown">
+                            <div className="dropdown" ref={departmentRef}>
                                 <div className="dropdown-button" ref={departmentButtonRef} onClick={toggleDepartment}>
-                                    <div>{formData.department || "Select department"}</div>
+                                <div>{formData.employName || "Select employee"}</div>
                                     <span id='toggle_selectIcon'> {!isDepartmentOpen ? <IoIosArrowDown /> : <IoIosArrowUp />} </span>
                                 </div>
                                 {isDepartmentOpen && (
                                     <div className="dropdown-menu" ref={departmentRef}>
                                         <input
+                                        
                                             type="search"
-                                            className='search22'
+                                            className='search22 AllShiftListInput'
                                             placeholder="Search department"
                                             value={searchQueryDepartment}
                                             id='searchDepartmentHead'
@@ -607,7 +686,7 @@ function AllshiftList() {
                                             {['Akash Singhde', 'Rajat Munde', 'Arman Singh'].filter(option =>
                                                 option.toLowerCase().includes(searchQueryDepartment.toLowerCase())
                                             ).map(option => (
-                                                <div className="dropdown-item" onClick={() => selectOption('department', option)} key={option}>
+                                                <div className="dropdown-item" onClick={() => selectOption('employName', option)} key={option}>
                                                     {option}
                                                 </div>
                                             ))}
@@ -622,7 +701,8 @@ function AllshiftList() {
       <div className='First-Section' style={{marginTop:"6px"}}>
       <div className='First-SectionData'>
         <label>Date</label>
-        <input type="date" style={{width:"340px"}} />
+        <input className='AllShiftListInput' type="date" style={{width:"340px"}} onChange={(e) => popupsetFormData({ ...popupformData, date: e.target.value })}
+ />
       </div>
       <div className='First-SectionData'>
         <label style={{color:"red"}}>Shifts*</label>
@@ -631,8 +711,9 @@ function AllshiftList() {
         className="dropdown-button"
         style={{ padding: '5px', cursor: 'pointer' }}
         onClick={toggleDropdownShift}
+        ref={departmentButtonRef}
       >
-        <div>{shiftSelectRole}</div>
+        <div>{formData.shift || 'Select shift'}</div>
         <span id="toggle_selectIcon">
           {shiftIsOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
         </span>
@@ -652,27 +733,27 @@ function AllshiftList() {
        <div className='First-Section' style={{marginTop:"6px"}}>
       <div className='First-SectionData'>
         <label style={{color:"#E51F1F"}}>Start Time*</label>
-        <input type="time"  style={{width:"340px"}} />
+        <input type="time" className='AllShiftListInput'  style={{width:"340px"}}  onChange={(e) => popupsetFormData({ ...popupformData, startTime: e.target.value })} />
       </div>
       <div className="First-SectionData">
       <label style={{color:"#E51F1F"}}>End Time*</label>
-        <input type="time" style={{width:"340px"}} />
+        <input type="time"className='AllShiftListInput' style={{width:"340px"}} onChange={(e) => popupsetFormData({ ...popupformData, endTime: e.target.value })} />
       </div>
        </div>
 
        <div className='First-Section' style={{marginTop:"6px"}}>
        <div className='First-SectionData'>
         <label style={{color:"#E51F1F"}}>Break Time*</label>
-        <input type="time"  style={{width:"340px"}} />
+        <input type="time" className='AllShiftListInput' style={{width:"340px"}}   onChange={(e) => popupsetFormData({ ...popupformData, breakTime: e.target.value })}/>
       </div>
 
       <div className='First-SectionData'>
         <label>Extra Hours</label>
-        <input type="text"   style={{width:"340px"}} placeholder="choose your hour" />
+        <input type="text"  className='AllShiftListInput'  style={{width:"340px"}} placeholder="choose your hour"   onChange={(e) => popupsetFormData({ ...popupformData, extraHours: e.target.value })}/>
       </div>
        </div>
       </div>
-      <button id='FormSubmitBtn' type='submit'>Submit <IoIosArrowDropright /></button>
+      <button onClick={handleSubmit} id='FormSubmitBtn' type='submit'>Submit <IoIosArrowDropright /></button>
      </div>
      
     </div>
