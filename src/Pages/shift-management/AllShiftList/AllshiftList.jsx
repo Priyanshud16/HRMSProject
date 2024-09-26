@@ -621,13 +621,13 @@ const handleClickOutside = (event) => {
                                         } */}
                                     </td>
                                     
-                                  <td> <Link to="/shiftManagementDetails" className='ShiftManagementLink'>{emp.shiftName}</Link></td>
+                                  <td> <Link to="/shiftManagementDetails" className='ShiftManagementLink' style={{color:"#2A2A2A"}}>{emp.shiftName}</Link></td>
                                    {/* <td>{emp.shiftName}</td> */}
-                                    <td><Link to="/shiftManagementDetails" className='ShiftManagementLink'>{emp.StartTime}</Link></td>
-                                    <td><Link to="/shiftManagementDetails" className='ShiftManagementLink'>{emp.EndTime}</Link></td>
-                                    <td> <Link to="/shiftManagementDetails" className='ShiftManagementLink'>{emp.Employees}</Link></td>
-                                    <td><Link to="/shiftManagementDetails" className='ShiftManagementLink'>{emp.ShiftDays}</Link></td>
-                                    <td>        <Link to="/shiftManagementDetails" className='ShiftManagementLink'>{emp.Duration}</Link>
+                                    <td><Link to="/shiftManagementDetails" className='ShiftManagementLink' style={{color:"#2A2A2A"}}>{emp.StartTime}</Link></td>
+                                    <td><Link to="/shiftManagementDetails" className='ShiftManagementLink' style={{color:"#2A2A2A"}}>{emp.EndTime}</Link></td>
+                                    <td> <Link to="/shiftManagementDetails" className='ShiftManagementLink' style={{color:"#2A2A2A"}}>{emp.Employees}</Link></td>
+                                    <td><Link to="/shiftManagementDetails" className='ShiftManagementLink' style={{color:"#2A2A2A"}}>{emp.ShiftDays}</Link></td>
+                                    <td>        <Link to="/shiftManagementDetails" className='ShiftManagementLink' style={{color:"#2A2A2A"}}>{emp.Duration}</Link>
                                     </td>
                                     <td>
                                         <div className="status-dropdown">
