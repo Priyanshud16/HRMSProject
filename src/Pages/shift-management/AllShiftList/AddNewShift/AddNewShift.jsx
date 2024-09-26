@@ -235,7 +235,7 @@ function AddNewShift() {
           </div>
         </div>
 
-        <div className='NextSection'>
+        <div className='NextSection' >
                     <div className='NxtBtn'><span>Next Page</span></div>
                     <div className='arrowContainer'>
                         <div className='arrow'>
