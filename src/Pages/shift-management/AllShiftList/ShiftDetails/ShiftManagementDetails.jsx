@@ -2,15 +2,22 @@ import React from 'react'
 import './ShiftManagementDetails.scss'
 import { BiEditAlt, BiRevision, BiTrash } from 'react-icons/bi'
 import { TfiClose } from 'react-icons/tfi'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 function ShiftManagementDetails() {
+
+  const navigate=useNavigate()
+
+
+  const HandleClose=()=>{
+  navigate("/shift-management")
+  }
   return (
     <div id='ShiftManagementDetailsContainer'>
       <div id='ShiftManagementnavcontainer'>
       <div id='ShiftManagementHeading'>
         <p>Shift Management Detail</p>
       </div>
-      <div id='ShiftMnagmentClose'>
+      <div id='ShiftMnagmentClose' onClick={HandleClose}>
       <span className="smclose_nav"><TfiClose /></span>
       </div>
       </div>
@@ -154,7 +161,7 @@ function ShiftManagementDetails() {
               </div>
              </div>
 
-             <div className='SmUserStatus'><div><h4>Active</h4></div></div>
+             <div className='SmUserStatus'><div style={{display:"flex"}}><span className='Activebtn'></span> <h4>Active</h4></div></div>
           </div>
 
           <div id='SMUserInfoBoxes' style={{display:"flex"}}>
@@ -173,7 +180,7 @@ function ShiftManagementDetails() {
               </div>
              </div>
 
-             <div className='SmUserStatus'><div><h4>Active</h4></div></div>
+             <div className='SmUserStatus'><div style={{display:"flex"}}> <span className='Activebtn'></span><h4>Active</h4></div></div>
           </div>
        </div>
    </div>
@@ -204,21 +211,31 @@ function ShiftManagementDetails() {
                                     <td className='td'>President of Sales</td>
                                     <td className='td'>990 470 3101</td>
                                     <td className='td'>HSEQ</td>
-                                    <td className='td'>Action</td>
+                                    <td className='td'><div className='actiondata' style={{border:"1px solid #D8D8D8",textAlign:"center"}}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#f22727" fill="none">
+    <path d="M20 12L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+</svg></div></td>
                                 </tr>
                                 <tr className='tr'>
                                     <td className='td'>Amardeep Singh</td>
                                     <td className='td'>Nursing Assistant</td>
                                     <td className='td'>990 470 3101</td>
                                     <td className='td'>IT</td>
-                                    <td className='td'>Action</td>
+                                    <td className='td'>
+                                    <div className='actiondata' style={{border:"1px solid #D8D8D8",textAlign:"center"}}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#f22727" fill="none">
+    <path d="M20 12L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+</svg></div>
+                                    </td>
                                 </tr>
                                 <tr className='tr'>
                                     <td className='td'>Vishwas Patel</td>
                                     <td className='td'>Dog Trainer</td>
                                     <td className='td'>990 470 3101</td>
                                     <td className='td'>Human Resources</td>
-                                    <td className='td'>Action</td>
+                                    <td className='td'>
+                                    <div className='actiondata' style={{border:"1px solid #D8D8D8",textAlign:"center"}}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#f22727" fill="none">
+    <path d="M20 12L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+</svg></div>
+                                    </td>
                                 </tr>
 
                                 <tr className='tr'>
@@ -226,7 +243,11 @@ function ShiftManagementDetails() {
                                     <td className='td'>Medical Assistant</td>
                                     <td className='td'>990 470 3101</td>
                                     <td className='td'>Operations</td>
-                                    <td className='td'>Action</td>
+                                    <td className='td'>
+                                    <div className='actiondata' style={{border:"1px solid #D8D8D8",textAlign:"center"}}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#f22727" fill="none">
+    <path d="M20 12L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+</svg></div>
+                                    </td>
                                 </tr>
 
                                 <tr className='tr'>
@@ -234,7 +255,11 @@ function ShiftManagementDetails() {
                                     <td className='td'>Web Designer</td>
                                     <td className='td'>990 470 3101</td>
                                     <td className='td'>Maintenance</td>
-                                    <td className='td'>Action</td>
+                                    <td className='td'>
+                                    <div className='actiondata' style={{border:"1px solid #D8D8D8",textAlign:"center"}}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#f22727" fill="none">
+    <path d="M20 12L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+</svg></div>
+                                    </td>
                                 </tr>
 
                                 <tr className='tr'>
@@ -242,7 +267,11 @@ function ShiftManagementDetails() {
                                     <td className='td'>Marketing Coordinator</td>
                                     <td className='td'>990 470 3101</td>
                                     <td className='td'>Engineering</td>
-                                    <td className='td'>Action</td>
+                                    <td className='td'>
+                                    <div className='actiondata' style={{border:"1px solid #D8D8D8",textAlign:"center"}}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#f22727" fill="none">
+    <path d="M20 12L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+</svg></div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

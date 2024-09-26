@@ -435,11 +435,12 @@ opacity: 0px;
 background-color: #400F6F;
 color: white;
 margin-left: 300px;
+cursor: pointer;
 
 
   }
 
-  #CloseBtnIcon:hover{
+  .CloseBtnIcon:hover{
     border: 1px solid red;
     border-radius: 50%;
     cursor: pointer;

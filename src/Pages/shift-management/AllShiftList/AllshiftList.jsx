@@ -291,9 +291,9 @@ function AllshiftList() {
 
 
       //dropdown
+      
 
-
-      const [formData, setFormData] = useState({ department: '' }); // Tracks selected department
+      const [formData, setFormData] = useState({ shift: '', department: '' }); // Tracks selected department
     
      
     
@@ -313,10 +313,58 @@ function AllshiftList() {
 
 //popup
 
+const handleClickOutside = (event) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target) &&
+      !departmentButtonRef.current.contains(event.target)
+    ) {
+      setIsOpen(false);
+    }
+  };
+
+//   const shiftDropdownRef = useRef(null);
+//   const shiftButtonRef = useRef(null);
+
+//   const toggleDropdownShift = () => {
+//     setShiftIsOpen(!shiftIsOpen);
+//   };
+
+//   const handleShiftClick = (shift) => {
+//     setFormData({ shift });
+//     setShiftIsOpen(false);
+//   };
+
+  const handleClickOutsideShift = (event) => {
+    if (
+      shiftDropdownRef.current &&
+      !shiftDropdownRef.current.contains(event.target) &&
+      !shiftButtonRef.current.contains(event.target)
+    ) {
+      setShiftIsOpen(false);
+    }
+  };
+
+
+
       const closePopup = () => {
         setShowPopup(false);
     };
 
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutsideShift);
+        return () => {
+          document.removeEventListener('mousedown', handleClickOutsideShift);
+        };
+      }, []);
+
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+          document.removeEventListener('mousedown', handleClickOutside);
+        };
+      }, []);
 
 
     useEffect(() => {
@@ -627,10 +675,10 @@ function AllshiftList() {
      <div className='PopupNav'>
       <div className='PopupHeading' style={{display:"flex",justifyContent:"space-between",width:"92%"}}>
       <span>Add Shedule</span>  
-      <div className='close_icon' onClick={closePopup}>
-                            <svg id='CloseBtnIcon' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#9b9b9b" fill="none">
-                                <path  d="M14.9994 15L9 9M9.00064 15L15 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z" stroke="currentColor" stroke-width="1.5" />
+      <div className='close_icon' onClick={closePopup} >
+                            <svg className='CloseBtnIcon'  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#9b9b9b" fill="none">
+                                <path className='CloseBtnIcon'  d="M14.9994 15L9 9M9.00064 15L15 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <path className='CloseBtnIcon' d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z" stroke="currentColor" stroke-width="1.5" />
                             </svg>
                         </div>
         </div>
@@ -639,27 +687,38 @@ function AllshiftList() {
       <div className='First-Section'>
       <div className="First-SectionData">
       <label style={{ color: "#E51F1F" }}>Department*</label>
-      <div className="dropdown" style={{ marginTop: '10px' }}ref={dropdownRef}>
-        <div
-          className="dropdown-button"
-          style={{ padding: '5px', cursor: 'pointer' }}
-          onClick={toggleDropdown}
-          ref={departmentButtonRef}
-        >
+      <div
+      className="dropdown"
+      style={{ marginTop: '10px' }}
+      ref={dropdownRef}
+     
+    >
+      <div
+        className="dropdown-button"
+        style={{ padding: '5px', cursor: 'pointer' }}
+        onClick={toggleDropdown}
+        ref={departmentButtonRef}
+      >
         <div>{formData.department || 'Select department'}</div>
-          <span id="toggle_selectIcon">
-            {isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
-          </span>
-        </div>
-
-        {isOpen && (
-          <div className="dropdown-menu">
-            <div className="dropdown-item" onClick={() => handleItemClick('CEO')}>CEO</div>
-            <div className="dropdown-item" onClick={() => handleItemClick('HR')}>HR</div>
-            <div className="dropdown-item" onClick={() => handleItemClick('Manager')}>Manager</div>
-          </div>
-        )}
+        <span id="toggle_selectIcon">
+          {isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
+        </span>
       </div>
+
+      {isOpen && (
+        <div className="dropdown-menu">
+          <div className="dropdown-item" onClick={() => handleItemClick('CEO')}>
+            CEO
+          </div>
+          <div className="dropdown-item" onClick={() => handleItemClick('HR')}>
+            HR
+          </div>
+          <div className="dropdown-item" onClick={() => handleItemClick('Manager')}>
+            Manager
+          </div>
+        </div>
+      )}
+    </div>
     </div>
 
        <div className='First-SectionData'>
@@ -706,12 +765,16 @@ function AllshiftList() {
       </div>
       <div className='First-SectionData'>
         <label style={{color:"red"}}>Shifts*</label>
-        <div className="dropdown" style={{ marginTop: '10px' }} ref={dropdownRef}>
+        <div
+      className="dropdown"
+      style={{ marginTop: '10px' }}
+      ref={shiftDropdownRef}
+    >
       <div
         className="dropdown-button"
         style={{ padding: '5px', cursor: 'pointer' }}
         onClick={toggleDropdownShift}
-        ref={departmentButtonRef}
+        ref={shiftButtonRef}
       >
         <div>{formData.shift || 'Select shift'}</div>
         <span id="toggle_selectIcon">
@@ -721,9 +784,18 @@ function AllshiftList() {
 
       {shiftIsOpen && (
         <div className="dropdown-menu">
-          <div className="dropdown-item" onClick={() => handleShiftClick('Day')}>Day</div>
-          <div className="dropdown-item" onClick={() => handleShiftClick('Night')}>Night</div>
-    
+          <div
+            className="dropdown-item"
+            onClick={() => handleShiftClick('Day')}
+          >
+            Day
+          </div>
+          <div
+            className="dropdown-item"
+            onClick={() => handleShiftClick('Night')}
+          >
+            Night
+          </div>
         </div>
       )}
     </div>

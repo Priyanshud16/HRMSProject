@@ -2,7 +2,8 @@
 @import "../../../../styles/variables";
 
 #ShiftManagementDetailsContainer{
-    width: 1296px;
+    // width: 1296px;
+    width: 1575px;
 height: 993px;
 margin-top: 15px;
 margin-left: 20px;
@@ -34,6 +35,9 @@ border: 1px solid #F8F7F9;
     
 }
 
+// width: 1568px;
+// justify-content: space-between;
+
 #ShiftManagementDetailsContainer {
     #ShiftManagementHeading {
       p {
@@ -62,7 +66,8 @@ opacity: 0px;
   }
 
   .HorizontalShitManagment{
-    width: 1191px;
+    // width: 1191px;
+    width: 1464px;
 margin-top: 30px;
 margin-left: 40px;
 gap: 0px;
@@ -75,6 +80,7 @@ border: 1px solid #E7E7E799 ;
 
   #ShiftManagementCustomerDetails{
     width: 268px;
+    
 height: 79px;
 margin-top: 12px;
 margin-left: 41px;
@@ -136,8 +142,9 @@ opacity: 0.35px;
 
 #GenralShiftParentContainer{
     display: flex;
-    width: 100%;
+    width: 1568px;
     height: 100px;
+    justify-content: space-between;
 }
 
 #ShiftManagementCustomerHeadingTime>span{
@@ -160,7 +167,8 @@ color:#2A2A2A;
     width: 225px;
 height: 34px;
 margin-top: 31px;
-margin-left: 700px;
+margin-right: 65px;
+
 gap: 12.13px;
 opacity: 0px;
 display: flex;
@@ -278,8 +286,20 @@ opacity: 0px;
     margin-left: -3px;
   }
 
+  .Activebtn{
+    border:1px solid #56ff06;
+    margin-right:10px;
+    height:2px;
+    width:5px;
+    padding:3px;
+    border-radius:50%;
+    margin-top:3px;
+    background-color:#56ff06;
+    color:#56ff06
+  }
+
   #smInfo-Managebox{
-    width: 1190px;
+    width: 1463px;
     height: 324px;
     margin-top: 35px;
     margin-left: 41px;
@@ -581,7 +601,7 @@ margin-top: 18px;
 
   }
   #smEmployeAssign{
-    width: 1190px;
+    width: 1464px;
 height: 348px;
 margin-top: 54px;
 margin-left: 41px;
@@ -593,7 +613,8 @@ opacity: 0px;
   }
 
   #smEmployeNav{
-    width: 1189px;
+    width: 1462px;
+    border-top-right-radius: 8px;
 height: 53px;
 left: 1px;
 gap: 0px;
@@ -770,4 +791,19 @@ text-align: left;
   .tbody .tr:last-child .td:last-child {
     border-bottom-right-radius: 10px;
   }
+}
+
+
+.actiondata{
+  width: 30px;
+height: 27px;
+top: 4px;
+left: 996px;
+padding: 4.58px 6.11px 4.58px 6.11px;
+gap: 7.64px;
+border-radius: 6px ;
+border: 1.01px ;
+opacity: 0px;
+text-align: center;
+
 }

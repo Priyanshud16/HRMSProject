@@ -60,6 +60,7 @@ margin-left: 21px;
 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   gap: 0px;
   opacity: 0px;
+  display: flex;
   
   }
   .Submitbtns{
@@ -100,3 +101,62 @@ border: 1px ;
 opacity: 0px;
 
   }
+
+
+.NextSection{
+  width: 127px;
+height: 24px;
+margin-top: 20px;
+margin-left: 1180px;
+gap: 0px;
+border: 1px ;
+opacity: 0px;
+display: flex;
+gap: 3px;
+
+}
+
+.NxtBtn{
+  
+  width: 62px;
+height: 12px;
+margin-top: 2px;
+left: 1180px;
+gap: 0px;
+opacity: 0.39px;
+
+}
+
+.NxtBtn>span{
+  font-family: Inter;
+font-size: 13px;
+font-weight: 500;
+line-height: 12px;
+letter-spacing: -0.02em;
+text-align: left;
+
+}
+
+.arrowContainer{
+  width: 54px;
+height: 24px;
+top: 20px;
+left: 1253px;
+gap: 0px;
+border: 1px;
+opacity: 0px;
+
+display: flex;
+gap: 5px;
+}
+.arrow{
+  width: 24px;
+height: 24px;
+top: 20px;
+left: 1253px;
+gap: 0px;
+border: 1px;
+opacity: 0.4px;
+
+
+}
